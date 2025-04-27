@@ -232,6 +232,19 @@ public class Main {
       loginPanel.add(tfPassword);
       JButton signIn = new JButton("Sign In");
       signIn.setBounds(170, 400, 100, 30);
+      
+      signIn.addActionListener(e -> {
+    	  SwingUtilities.invokeLater(() -> {
+    		  Window parentWindow = SwingUtilities.getWindowAncestor(loginPanel);
+    		  
+    		  Dashboard dashboard = new Dashboard();
+    		  dashboard.setVisible(true);
+    		  
+    		  if (parentWindow != null) {
+    			  parentWindow.dispose();
+    		  }
+    	  });
+      })
       loginPanel.add(signIn);
   }
   
