@@ -1,0 +1,276 @@
+package project;
+import javax.swing.*;
+import java.awt.*;
+public class Main {
+  private JPanel mainPanel, slidingPanel, loginPanel, registerPanel;
+  private JButton toggleButton;
+  private boolean isLoginVisible = false;
+  private final String imagePath = "C:\\Users\\My PC\\Downloads\\lendify.png";
+  public Main() {
+     
+	  // Frame setup
+      JFrame mainFrame = new JFrame("Login/Register");
+      mainFrame.setSize(1000, 800);
+      mainFrame.setLayout(null);
+      mainFrame.setResizable(false);
+      
+      // Main panel (WHOLE PANEL ITO YUNG MAKIKITA MO PAG RUN)
+      mainPanel = new JPanel(null);
+      mainPanel.setBounds(0, 0, 1000, 800);
+      mainFrame.add(mainPanel);
+      initSlidingPanel();
+      initRegisterPanel();
+      initLoginPanel();
+      mainPanel.add(registerPanel);
+      mainPanel.add(loginPanel);
+      loginPanel.setVisible(false);
+      toggleButton.addActionListener(e -> togglePanel());
+      mainFrame.setVisible(true);
+  }
+  
+  private void initSlidingPanel() {
+      slidingPanel = new JPanel(null);
+      slidingPanel.setBounds(0, 0, 500, 800);
+      slidingPanel.setBackground(new Color(34, 153, 84));
+     
+      // Logo
+      ImageIcon originalIcon = new ImageIcon(imagePath);
+      Image scaledLogo = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+      JLabel logoLabel = new JLabel(new ImageIcon(scaledLogo));
+      logoLabel.setBounds(0, 0, 100, 100);
+      slidingPanel.add(logoLabel);
+     
+      // Welcome
+      int panelWidth = 500;
+      int totalComponentsHeight = 30 * 3 + 20 * 2;
+      int startY = (800 - totalComponentsHeight) / 2;
+      
+      JLabel welcome = new JLabel("Welcome to Lendify", SwingConstants.CENTER);
+      welcome.setForeground(Color.WHITE);
+      welcome.setFont(new Font("Arial", Font.BOLD, 22));
+      welcome.setBounds(0, 100, 350, 100);
+      slidingPanel.add(welcome);
+      
+     
+      JLabel login = new JLabel("Already have an account? Login", SwingConstants.CENTER);
+      login.setForeground(Color.WHITE);
+      login.setFont(new Font("Arial", Font.BOLD, 22));
+      login.setBounds(62, 140, 350, 100);
+      slidingPanel.add(login);
+      
+    
+      toggleButton = new JButton("SIGN IN");
+      toggleButton.setBounds(192, 220, 90, 30);
+      slidingPanel.add(toggleButton);
+      mainPanel.add(slidingPanel);
+  }
+  
+  private void initRegisterPanel() {
+	    registerPanel = new JPanel(null);
+	    registerPanel.setBounds(500, 0, 500, 800);
+	    registerPanel.setBackground(Color.WHITE);
+	    
+
+	    JLabel title = new JLabel("Create Account");
+	    title.setFont(new Font("Arial", Font.BOLD, 22));
+	    title.setBounds(170, 100, 200, 30);
+	    registerPanel.add(title);
+	    
+	    // Personal Information
+	    JLabel fullNameLabel = new JLabel("Full Name: ");
+	    fullNameLabel.setBounds(50, 170, 200, 30);
+	    registerPanel.add(fullNameLabel);
+ 
+	    JTextField fullNameField = new JTextField();
+	    fullNameField.setBounds(165, 170, 200, 30);
+	    registerPanel.add(fullNameField);
+	    
+	    
+	    JLabel emailLabel = new JLabel("Email: ");
+	    emailLabel.setBounds(50, 220, 200, 30);
+	    registerPanel.add(emailLabel);
+	    
+	    JTextField emailField = new JTextField();
+	    emailField.setBounds(165, 220, 200, 30);
+	    registerPanel.add(emailField);
+	    
+	    
+	    JLabel phoneLabel = new JLabel("Phone Number: ");
+	    phoneLabel.setBounds(50, 270, 200, 30);
+	    registerPanel.add(phoneLabel);
+	    
+	    JTextField phoneField = new JTextField();
+	    phoneField.setBounds(165, 270, 200, 30);
+	    registerPanel.add(phoneField);
+	    
+	    
+
+	    JLabel dobLabel = new JLabel("Date of Birth:");
+	    dobLabel.setBounds(50, 320, 200, 30);
+	    registerPanel.add(dobLabel);
+	    
+	    JPanel dobPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	    dobPanel.setBackground(Color.WHITE);
+	    dobPanel.setBounds(165, 320, 250, 30);
+	    
+	    String[] days = new String[31];
+	    for(int i=1; i<=31; i++) days[i-1] = String.valueOf(i);
+	    dobPanel.add(new JComboBox<>(days));
+	    dobPanel.add(new JLabel("/"));
+	    dobPanel.add(new JComboBox<>(new String[]{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"}));
+	    dobPanel.add(new JLabel("/"));
+	    dobPanel.add(new JComboBox<>(new String[]{"2000","2001","2002","2003","2004","2005"}));
+	    registerPanel.add(dobPanel);
+	    
+	    
+	    // Financial Information
+	    JLabel occupationLabel = new JLabel("Occupation: ");
+	    occupationLabel.setBounds(50, 370, 200, 30);
+	    registerPanel.add(occupationLabel);
+	    
+	    JComboBox<String> occupationDropdown = new JComboBox<>(new String[]{
+	        "Select Occupation",
+	        "Student",
+	        "Employee",
+	        "Self-Employed",
+	        "Freelancer",
+	        "Other"
+	    });
+	    occupationDropdown.setBounds(165, 370, 200, 30);
+	    registerPanel.add(occupationDropdown);
+	    
+	    
+	    JLabel incomeLabel = new JLabel("Monthly Income ($): ");
+	    incomeLabel.setBounds(50, 420, 200, 30);
+	    registerPanel.add(incomeLabel);
+	      
+	    JTextField incomeField = new JTextField();
+	    incomeField.setBounds(165, 420, 200, 30);
+	    registerPanel.add(incomeField);
+	    
+	    
+	    JLabel incomesourceLabel = new JLabel("Income Source: ");
+	    incomesourceLabel.setBounds(50, 470, 200, 30);
+	    registerPanel.add(incomesourceLabel);
+	    
+	    JComboBox<String> incomesourceDropdown = new JComboBox<>(new String[]{
+	        "Select Source",
+	        "Salary",
+	        "Business",
+	        "Allowance",
+	        "Investments",
+	        "Other"
+	    });
+	    incomesourceDropdown.setBounds(165, 470, 200, 30);
+	    registerPanel.add(incomesourceDropdown);
+	    
+	    
+	    JLabel passwordLabel = new JLabel("Password: ");
+	    passwordLabel.setBounds(50, 520, 200, 30);
+	    registerPanel.add(passwordLabel);
+	    
+	    JPasswordField passwordField = new JPasswordField();
+	    passwordField.setBounds(165, 520, 200, 30);
+	    registerPanel.add(passwordField);
+	    
+	    
+	    JLabel confirmPasswordLabel = new JLabel("Confirm Password: ");
+	    confirmPasswordLabel.setBounds(50, 570, 200, 30);
+	    registerPanel.add(confirmPasswordLabel);
+	    
+	    JPasswordField confirmPasswordField = new JPasswordField();
+	    confirmPasswordField.setBounds(165, 570, 200, 30);
+	    registerPanel.add(confirmPasswordField);
+	    
+	    
+	    // Upload Button
+	    JLabel idProofLabel = new JLabel("ID Proof: ");
+	    idProofLabel.setBounds(50, 620, 200, 30);
+	    registerPanel.add(idProofLabel);
+	    
+	    JButton uploadBtn = new JButton("Upload ID Proof");
+	    uploadBtn.setBounds(165, 620, 150, 30);
+	    uploadBtn.addActionListener(e -> {
+	        JFileChooser fileChooser = new JFileChooser();
+	        int result = fileChooser.showOpenDialog(null);
+	        if(result == JFileChooser.APPROVE_OPTION) {
+	            JOptionPane.showMessageDialog(null, "File selected: " +
+	                fileChooser.getSelectedFile().getName());
+	        }
+	    });
+	    registerPanel.add(uploadBtn);
+	    
+	    
+	    JButton signUp = new JButton("Sign Up");
+	    signUp.setBounds(170, 720, 150, 30);
+	    signUp.addActionListener(e -> {
+	        JOptionPane.showMessageDialog(null, "Application Submitted Successfully!");
+	    });
+	    registerPanel.add(signUp);
+	}
+  
+  
+  private void initLoginPanel() {
+      loginPanel = new JPanel(null);
+      loginPanel.setBounds(0, 0, 500, 800);
+      loginPanel.setBackground(Color.WHITE);
+      JLabel title = new JLabel("Login");
+      title.setFont(new Font("Arial", Font.BOLD, 22));
+      title.setBounds(120, 100, 200, 30);
+      loginPanel.add(title);
+      JLabel username = new JLabel("Username");
+      username.setBounds(120, 170, 200, 30);
+      loginPanel.add(username);
+      JTextField tfUsername = new JTextField();
+      tfUsername.setBounds(120, 200, 200, 30);
+      loginPanel.add(tfUsername);
+      JLabel password = new JLabel("Password");
+      password.setBounds(120, 270, 200, 30);
+      loginPanel.add(password);
+      JTextField tfPassword = new JTextField();
+      tfPassword.setBounds(120, 300, 200, 30);
+      loginPanel.add(tfPassword);
+      JButton signIn = new JButton("Sign In");
+      signIn.setBounds(170, 400, 100, 30);
+      loginPanel.add(signIn);
+  }
+  
+  private void togglePanel() {
+      new Thread(() -> {
+          int step = 5;
+          int delay = 5;
+          if (!isLoginVisible) {
+              while (slidingPanel.getX() < 500) {
+                  slidingPanel.setLocation(slidingPanel.getX() + step, 0);
+                  sleep(delay);
+              }
+              SwingUtilities.invokeLater(() -> {
+                  registerPanel.setVisible(false);
+                  loginPanel.setVisible(true);
+                  toggleButton.setText("SIGN UP");
+                  isLoginVisible = true;
+              });
+          } else {
+              while (slidingPanel.getX() > 0) {
+                  slidingPanel.setLocation(slidingPanel.getX() - step, 0);
+                  sleep(delay);
+              }
+              SwingUtilities.invokeLater(() -> {
+                  loginPanel.setVisible(false);
+                  registerPanel.setVisible(true);
+                  toggleButton.setText("SIGN IN");
+                  isLoginVisible = false;
+              });
+          }
+      }).start();
+  }
+  private void sleep(int millis) {
+      try {
+          Thread.sleep(millis);
+      } catch (InterruptedException ignored) {
+      }
+  }
+  public static void main(String[] args) {
+      new Main();
+  }
+}
